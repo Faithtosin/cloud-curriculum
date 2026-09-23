@@ -6,7 +6,7 @@ sidebar:
 
 > ⏱️ **Estimated time:** 2-3 days
 
-Incident response is about being prepared to handle security events when they occur. Before implementing automated threat detection for your Journal API, you need to understand threat detection principles and incident response workflows.
+Incident response is about being prepared to handle security events when they occur. This covers the NIST CSF **Detect**, **Respond** and **Recover** functions. Before implementing automated threat detection for your Journal API, you need to understand threat detection principles and incident response workflows.
 
 ---
 
@@ -28,6 +28,7 @@ By the end of this topic, you will understand:
 Start with these foundational guides:
 
 - [NIST Computer Security Incident Handling Guide](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final) - Read sections 1-3
+- [AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/welcome.html) - How to prepare for and respond to incidents on AWS
 - [SANS Incident Response Process](https://www.sans.org/white-papers/33901/) - Overview of incident response
 - [MITRE ATT&CK for Cloud](https://attack.mitre.org/matrices/enterprise/cloud/) - Common cloud attack techniques
 
@@ -51,7 +52,7 @@ Start with these foundational guides:
 ### Common Cloud Threats
 - **Account Compromise**: Stolen credentials or API keys
 - **Data Breaches**: Unauthorized access to sensitive data
-- **Resource Hijacking**: Using your cloud resources for malicious purposes
+- **Resource Hijacking**: Using your cloud resources for malicious purposes (for example, crypto-mining on EC2 instances you pay for)
 - **Misconfigurations**: Accidentally exposing resources publicly
 - **Supply Chain Attacks**: Compromised dependencies or third-party services
 
@@ -60,6 +61,16 @@ Start with these foundational guides:
 - **Playbooks**: Predefined response procedures for common incidents
 - **Threat Intelligence**: Using external threat data to improve detection
 - **Behavioral Analysis**: Detecting anomalies in user and system behavior
+
+### How This Looks on AWS
+- **Detect**: [Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html) watches CloudTrail, VPC Flow Logs and DNS logs for suspicious behavior (such as API calls from known-malicious IP addresses). [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html) scans EC2 instances, container images and Lambda functions for known software vulnerabilities.
+- **Aggregate**: [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html) collects GuardDuty, Inspector and Config findings in one place.
+- **Respond automatically**: An [Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) rule matches a finding and triggers an action—send an email through Amazon SNS (Simple Notification Service), or run an AWS Lambda function that, for example, deactivates a leaked access key or moves an instance into a "quarantine" security group.
+- **Investigate**: [Amazon Detective](https://docs.aws.amazon.com/detective/latest/userguide/what-is-detective.html) and CloudTrail event history help you trace what happened.
+
+:::caution[Costs]
+GuardDuty, Inspector, Security Hub and Detective each have a free trial (typically 30 days) and then charge based on how much data they analyze. For a small learning account this is usually a few dollars a month, but check each service's usage page in the console before the trial ends and disable anything you no longer need.
+:::
 
 ### Incident Severity Levels
 - **Critical**: Immediate threat to business operations or data
@@ -81,13 +92,15 @@ Use an AI assistant to test your understanding. Here are example prompts:
 6. "Test my understanding of security playbooks and runbooks"
 7. "Quiz me on containment strategies for different types of incidents"
 8. "Ask me about post-incident activities and lessons learned"
+9. "Quiz me on what I should do in the first 15 minutes after finding a leaked AWS access key"
 
 ## Additional Resources (Optional)
 
 ### Threat Detection Tools
-- [AWS GuardDuty](https://docs.aws.amazon.com/guardduty/) - Threat detection service
-- [Azure Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/) - Cloud-native SIEM
-- [Google Chronicle](https://cloud.google.com/chronicle) - Security analytics platform
+- [Amazon GuardDuty](https://docs.aws.amazon.com/guardduty/) - Threat detection service
+- [AWS Security Hub](https://docs.aws.amazon.com/securityhub/) - Central view of security findings and posture checks
+- [Amazon Inspector](https://docs.aws.amazon.com/inspector/) - Vulnerability scanning
+- [Amazon Detective](https://docs.aws.amazon.com/detective/) - Investigation and root-cause analysis
 
 ### Incident Response Frameworks
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
@@ -96,7 +109,7 @@ Use an AI assistant to test your understanding. Here are example prompts:
 
 ### Practice Resources
 - [AWS Incident Response Workshops](https://catalog.workshops.aws/incident-response/)
-- [Azure Security Incident Response](https://learn.microsoft.com/en-us/azure/security/fundamentals/incident-response)
+- [AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/welcome.html)
 - [Incident Response Tabletop Exercises](https://www.cisa.gov/sites/default/files/publications/Tabletop_Exercise_Package.pdf)
 
 ### Threat Intelligence Sources
