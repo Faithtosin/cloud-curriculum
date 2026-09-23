@@ -1,0 +1,18 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+<p class="attribution">
+	Adapted from <a href="https://learntocloud.guide">Learn to Cloud</a> by Gwyneth Peña-Siguenza,
+	licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Changes were made.
+	<a href="/credits/">Details</a>.
+</p>
+
+<style>
+	.attribution {
+		margin-top: 1.5rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+</style>

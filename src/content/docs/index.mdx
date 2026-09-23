@@ -1,0 +1,37 @@
+---
+title: Become a cloud engineer, from zero
+description: A free, beginner-friendly path to becoming a cloud engineer, AWS first.
+template: splash
+hero:
+  tagline: A step-by-step path from "what is Linux?" to deploying and securing real applications on AWS. No experience needed.
+  actions:
+    - text: Start with Phase 0
+      link: /phase0/
+      icon: right-arrow
+    - text: Already in tech? Skip to Phase 1
+      link: /phase1/
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+{/* TODO(owner): replace this intro with your own voice and story. */}
+
+## The path
+
+<CardGrid>
+	<LinkCard title="Phase 0: Starting from zero" href="/phase0/" description="IT, networking, programming and cloud basics. About 3–4 weeks." />
+	<LinkCard title="Phase 1: Linux and Bash" href="/phase1/" description="Version control, the CLI, SSH, and a hands-on Linux CTF." />
+	<LinkCard title="Phase 2: Programming & AI" href="/phase2/" description="Python, REST APIs, FastAPI, databases and GenAI APIs." />
+	<LinkCard title="Phase 3: Cloud Fundamentals" href="/phase3/" description="Compute, IAM, networking, databases and cost management on AWS." />
+	<LinkCard title="Phase 4: DevOps" href="/phase4/" description="Containers, CI/CD, Terraform, Kubernetes and monitoring." />
+	<LinkCard title="Phase 5: Cloud Security" href="/phase5/" description="IAM, secrets, network security, monitoring and incident response." />
+</CardGrid>
+
+## How it works
+
+<CardGrid>
+	<Card title="Learn" icon="open-book">Each topic links to curated free resources.</Card>
+	<Card title="Test yourself" icon="approve-check">Use the prompts to quiz yourself with an AI assistant.</Card>
+	<Card title="Build" icon="laptop">Every phase ends with a hands-on project you can show employers.</Card>
+</CardGrid>
