@@ -36,7 +36,7 @@ Before setting up cloud resources, start with this free hands-on practice using 
 
 **Resource:** [Python OpenAI Demos](https://aka.ms/python-openai-demos) ([Video Walkthrough](https://www.youtube.com/watch?v=_daw48A-RZI))
 
-This repository teaches you the OpenAI Python SDK through progressively complex examples—the same SDK used by Azure OpenAI. You can run it **completely free** using GitHub Models in GitHub Codespaces.
+This repository teaches you the OpenAI Python SDK through progressively complex examples—the most widely used style of LLM API. The ideas you learn here (messages, temperature, structured outputs, function calling) carry straight over to Amazon Bedrock later in this topic. You can run it **completely free** using GitHub Models in GitHub Codespaces.
 
 **Action:** Work through these examples in order:
 
@@ -47,7 +47,7 @@ This repository teaches you the OpenAI Python SDK through progressively complex 
 **Why start here?**
 - ✅ Free (uses GitHub Models, no credit card needed)
 - ✅ Works in browser (GitHub Codespaces)
-- ✅ Same SDK you'll use with Azure OpenAI
+- ✅ Teaches concepts you'll reuse with Amazon Bedrock
 - ✅ Builds skills progressively
 
 ### Video Series: Python + AI
@@ -61,38 +61,32 @@ For deeper learning, check out these videos from the **Python + AI livestream se
 
 > **Optional:** The full series covers 9 topics including RAG, AI Agents, and more. Watch them all if you want a deep understanding of Python + AI.
 
-## Choosing Your Cloud Provider
+## Your Cloud AI Service: Amazon Bedrock
 
-Once you've completed the demos above, apply your skills to your cloud provider's AI service. This teaches you cloud-specific skills like IAM, resource management, and billing.
+Once you've completed the demos above, apply your skills to AWS's AI service, **Amazon Bedrock**. Bedrock gives you access to many different LLMs (from Amazon, Anthropic, Meta, Mistral and others) through one AWS API. Using it teaches you real cloud skills like IAM permissions, regions, and billing.
 
-- **Azure OpenAI** - If you're focusing on Azure (accessed via Azure AI Foundry)
-- **AWS Bedrock** - If you're focusing on AWS (supports Claude, Llama, and other models)
-- **GCP Vertex AI** - If you're focusing on Google Cloud (supports Gemini and other models)
+- Study: [What is Amazon Bedrock?](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 
-**Action:** Choose the provider that matches your cloud focus.
+> ⚠️ **Bedrock is not free.** You pay per **token** (a token is a chunk of text, roughly ¾ of a word) for both what you send and what you get back. The amounts for this phase are small (see *Cost Awareness* below), but check [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/) and make sure the budget alert from Phase 1 is set up.
+
+> ℹ️ **Other clouds:** Google Cloud's equivalent is Vertex AI. You don't need it for this course.
 
 ## Provider Playground Practice
 
 **IMPORTANT:** Test in the playground BEFORE writing code.
 
-### Azure OpenAI
-- Study: [Azure OpenAI Chat Completions Quickstart](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/chatgpt-quickstart)
-- Action: [Create an Azure OpenAI resource](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/create-resource)
-- Action: [Use the Azure AI Foundry Chat playground](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/chatgpt-quickstart?pivots=programming-language-studio)
-
-### AWS Bedrock
-- Study: [AWS Bedrock Getting Started](https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started.html)
-- Action: [Use the AWS Bedrock Playground](https://docs.aws.amazon.com/bedrock/latest/userguide/playgrounds.html)
-- Action: Enable model access for Claude or Llama models in your region
-
-### GCP Vertex AI
-- Study: [Vertex AI Generative AI Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/overview)
-- Action: [Use Vertex AI Studio](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-text)
-- Action: Test prompts in the Vertex AI Studio text prompt interface
+### Amazon Bedrock
+1. **Pick a region** (for example `us-east-1`, N. Virginia) in the top-right of the AWS Console and use the same one everywhere. Not every model is available in every region.
+2. **Enable model access.** In the Bedrock console, open **Model access** and make sure the model you want to use is enabled for your account. Some model providers (for example Anthropic) ask you to fill in a short use-case form the first time.
+   - Action: [Access Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html)
+   - Tip: start with a small, cheap model (such as Amazon Nova Micro or Nova Lite, or a small Claude or Llama model).
+3. **Try the playground.**
+   - Study: [Getting started with Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started.html)
+   - Action: [Use the Amazon Bedrock playgrounds](https://docs.aws.amazon.com/bedrock/latest/userguide/playgrounds.html)
 
 ## Playground Exercises
 
-In your chosen provider's playground, test these prompts:
+In the Amazon Bedrock chat playground, test these prompts:
 
 1. **Simple completion**: 
    ```
@@ -118,35 +112,89 @@ Take screenshots of successful responses. You'll replicate these in code next.
 
 Now implement the same prompts in Python.
 
-### Azure OpenAI SDK
-- Action: [Azure OpenAI Python Quickstart](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/chatgpt-quickstart?pivots=programming-language-python)
-- Install: `pip install openai`
+### Amazon Bedrock with boto3 (Converse API)
 
-### AWS Bedrock SDK
-- Action: [AWS Bedrock Python SDK Examples](https://docs.aws.amazon.com/bedrock/latest/userguide/getting-started-api.html)
+You'll use **boto3**, the AWS SDK (Software Development Kit) for Python, and Bedrock's **Converse API** - one consistent way to talk to any chat model on Bedrock.
+
 - Install: `pip install boto3`
+- Study: [Carry out a conversation with the Converse API](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html)
+- Reference: [boto3 `converse` documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-runtime/client/converse.html)
 
-### GCP Vertex AI SDK
-- Action: [Vertex AI Python SDK Quickstart](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal)
-- Install: `pip install google-cloud-aiplatform`
+**No API key needed:** boto3 automatically uses the AWS credentials you set up with the AWS CLI in Phase 1 (`aws sso login` or `aws configure`). Your IAM user or role needs permission to call Bedrock (for example the `bedrock:InvokeModel` action).
+
+Here's a minimal example that sends a system message and a user message and prints the reply:
+
+```python
+import os
+
+import boto3
+
+# Read settings from environment variables, with sensible defaults.
+REGION = os.environ.get("AWS_REGION", "us-east-1")
+# Copy the exact model ID (or "inference profile" ID) from the Bedrock console.
+# Some models, such as this one, must be called through an inference profile
+# whose ID starts with a region prefix like "us.".
+MODEL_ID = os.environ.get("BEDROCK_MODEL_ID", "us.amazon.nova-micro-v1:0")
+
+client = boto3.client("bedrock-runtime", region_name=REGION)
+
+response = client.converse(
+    modelId=MODEL_ID,
+    system=[{"text": "You are a helpful learning coach who analyzes student journal entries."}],
+    messages=[
+        {
+            "role": "user",
+            "content": [{"text": 'Analyze this entry: "I\'m frustrated with databases but making progress."'}],
+        }
+    ],
+    inferenceConfig={"maxTokens": 300, "temperature": 0.2},
+)
+
+# The reply text lives inside output -> message -> content.
+print(response["output"]["message"]["content"][0]["text"])
+
+# How many tokens you used (this is what you pay for).
+print(response["usage"])  # {'inputTokens': ..., 'outputTokens': ..., 'totalTokens': ...}
+```
+
+To continue a conversation, append the assistant's reply (`response["output"]["message"]`) and your next user message to the `messages` list and call `converse` again.
+
+Errors come back as `botocore.exceptions.ClientError`. Common ones for beginners:
+
+```python
+from botocore.exceptions import ClientError
+
+try:
+    response = client.converse(modelId=MODEL_ID, messages=[{"role": "user", "content": [{"text": "Hello!"}]}])
+except ClientError as err:
+    code = err.response["Error"]["Code"]
+    if code == "AccessDeniedException":
+        print("No access: check model access in the Bedrock console and your IAM permissions.")
+    elif code == "ThrottlingException":
+        print("Too many requests: wait a moment and retry.")
+    else:
+        raise
+```
+
+> ℹ️ **Other clouds:** On Google Cloud you'd use the Vertex AI SDK instead. Not needed for this course.
 
 ## Key Concepts to Learn
 
-Work through your chosen provider's Python documentation and ensure you understand:
+Work through the Bedrock and boto3 documentation and ensure you understand:
 
-1. **Authentication**: API keys, service principals, or IAM roles
+1. **Authentication**: How boto3 finds your AWS credentials (IAM users/roles and IAM Identity Center sign-in), and how that differs from the API keys used by providers like OpenAI
 2. **Making requests**: Sending messages to the LLM
 3. **Handling responses**: Parsing the completion text
 4. **Error handling**: Rate limits, timeouts, invalid requests
-5. **Environment variables**: Storing API keys securely (NEVER commit keys to git!)
-6. **Async support**: Using async/await with LLM APIs
+5. **Environment variables**: Keeping settings (region, model ID) and any secrets out of your code (NEVER commit keys or credentials to git!)
+6. **Async support**: Using async/await with LLM APIs (boto3 itself is synchronous; in an async app like FastAPI you can run it in a thread, e.g. with `asyncio.to_thread`)
 
 ## Practice Exercise
 
 Create a simple Python script `llm_test.py` that:
 
-1. Loads API credentials from environment variables
-2. Sends a journal entry text to your chosen LLM
+1. Uses your AWS credentials from the AWS CLI setup and reads the region and model ID from environment variables (no secrets hard-coded)
+2. Sends a journal entry text to a model on Amazon Bedrock using the Converse API
 3. Requests sentiment analysis (positive/negative/neutral)
 4. Requests a 2-sentence summary
 5. Prints the results in a clean format
@@ -162,7 +210,9 @@ LLM APIs are pay-per-use. Typical costs for this phase:
 - ~$0.50 - $3.00 for testing and completing the capstone
 - Tokens are charged for both input (prompt) and output (response)
 - Longer prompts = higher cost
-- Larger models (GPT-4o, Claude Sonnet) = higher cost than smaller models (GPT-4o-mini, Claude Haiku)
+- Larger models (for example Claude Sonnet or Nova Pro) = higher cost than smaller models (for example Claude Haiku or Nova Micro)
+- On Bedrock, the `usage` field in every response tells you exactly how many tokens you were billed for
+- Check your spend in the AWS Billing console and keep your budget alert switched on
 
 **Tip:** Use smaller, faster models for development and testing. Switch to larger models only when needed.
 
@@ -187,9 +237,9 @@ Once you are done with the tutorials, test your knowledge with an AI assistant. 
 Before moving on, make sure you have:
 
 - [ ] Completed the Python OpenAI Demos exercises
-- [ ] Tested prompts in your cloud provider's playground (Azure AI Foundry, AWS Bedrock, or Vertex AI)
+- [ ] Enabled model access and tested prompts in the Amazon Bedrock playground
 - [ ] Understood the messages format (system, user, assistant)
 - [ ] Practiced with structured outputs (JSON responses)
-- [ ] Created a Python script that calls an LLM API
-- [ ] Stored API keys securely in environment variables
+- [ ] Created a Python script that calls an LLM API (Amazon Bedrock Converse API via boto3)
+- [ ] Kept credentials and API keys out of my code (AWS CLI credentials, environment variables)
 - [ ] Understood cost awareness and token pricing

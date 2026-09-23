@@ -6,7 +6,7 @@ sidebar:
 
 > ⏱️ **Estimated time:** 3-4 days
 
-Monitoring and observability are essential DevOps practices that help you understand the health, performance, and reliability of your applications and infrastructure. In this topic, you'll learn how to set up monitoring using [Prometheus](https://prometheus.io/) and visualize metrics with [Grafana](https://grafana.com/). You'll then explore AI agents with n8n and agentic workflows which enable you to automate incident response instead of relying purely on manual intervention.
+Monitoring and observability are essential DevOps practices that help you understand the health, performance, and reliability of your applications and infrastructure. In this topic, you'll learn how to set up monitoring using [Prometheus](https://prometheus.io/) and visualize metrics with [Grafana](https://grafana.com/). You'll also see how AWS's built-in monitoring service, Amazon CloudWatch, fits in. You'll then explore AI agents with n8n and agentic workflows which enable you to automate incident response instead of relying purely on manual intervention.
 
 ---
 
@@ -44,6 +44,10 @@ Monitoring systems generate constant streams of alerts. Traditionally, engineers
 - [Prometheus Overview](https://prometheus.io/docs/introduction/overview/)
 - [Grafana Overview](https://grafana.com/docs/grafana/latest/getting-started/what-is-grafana/)
 - [Prometheus + Grafana Integration](https://grafana.com/docs/grafana/latest/datasources/prometheus/)
+- Monitoring on AWS:
+  - [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html) - collects metrics, logs (CloudWatch Logs) and alarms for your AWS resources. Services like EC2, ECS, Lambda and RDS send basic metrics to it automatically.
+  - [AWS X-Ray](https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html) - distributed tracing, which shows how a single request travels through your services and where it slows down.
+  - [Amazon Managed Service for Prometheus](https://docs.aws.amazon.com/prometheus/latest/userguide/what-is-Amazon-Managed-Service-Prometheus.html) - a hosted version of Prometheus, useful later when you run on EKS.
 - What are [AI agents?](https://aws.amazon.com/what-is/ai-agents/)
 - What are [agentic workflows?](https://www.ibm.com/think/topics/agentic-workflows)
 - [n8n Overview](https://n8n.io/features/)
@@ -56,6 +60,8 @@ Monitoring systems generate constant streams of alerts. Traditionally, engineers
 - **Alerting**: Automated notifications based on metric thresholds
 - **Dashboards**: Visual representations of metrics for quick insights
 - **Instrumentation**: Adding code or exporters to expose metrics
+- **Logs**: Timestamped records of events (on AWS these usually go to CloudWatch Logs)
+- **Traces**: The path of a single request through multiple services (on AWS, collected by X-Ray)
 
 ---
 
@@ -92,7 +98,7 @@ Monitoring systems generate constant streams of alerts. Traditionally, engineers
   ```
 - Access Grafana at [http://localhost:3000](http://localhost:3000) (default login: `admin` / `admin`)
 - Add Prometheus as a data source (URL: `http://host.docker.internal:9090` or `http://localhost:9090`)
-- Add and connect your cloud provider's metrics if applicable (e.g., AWS CloudWatch, Azure Monitor)
+- (Optional) Add [Amazon CloudWatch as a data source](https://grafana.com/docs/grafana/latest/datasources/aws-cloudwatch/) so you can see your AWS metrics next to your Prometheus metrics. Give Grafana a read-only IAM role or user - never your root account. CloudWatch API calls and custom metrics can cost a little beyond the [Free Tier](https://aws.amazon.com/free/), so keep refresh intervals modest.
 
 ### 3. Create Dashboards
 
@@ -134,7 +140,7 @@ Use these prompts to test your understanding:
 1. What is the difference between monitoring and observability?
 2. How does Prometheus collect metrics from applications?
 3. What is PromQL and how is it used in Grafana dashboards?
-4. How would you set up alerting for high CPU usage using Prometheus?
+4. How would you set up alerting for high CPU usage using Prometheus, and how would you do the same with a CloudWatch alarm?
 5. What are exporters in the context of Prometheus?
 6. How do you add a new data source in Grafana?
 7. What are some best practices for dashboard design?
@@ -147,6 +153,8 @@ Use these prompts to test your understanding:
 
 - [Prometheus Documentation](https://prometheus.io/docs/)
 - [Grafana Documentation](https://grafana.com/docs/)
+- [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+- [AWS X-Ray Developer Guide](https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html)
 - [Monitoring Node.js Apps with Prometheus & Grafana](https://codersociety.com/blog/articles/nodejs-application-monitoring-with-prometheus-and-grafana)
 - [Monitoring Python Apps with Prometheus & Grafana](https://dev.to/ken_mwaura1/getting-started-monitoring-a-fastapi-app-with-grafana-and-prometheus-a-step-by-step-guide-3fbn)
 - [Awesome Prometheus Alerts](https://samber.github.io/awesome-prometheus-alerts/)
@@ -163,6 +171,7 @@ Before moving on, make sure you have:
 - [ ] Set up Prometheus with basic configuration
 - [ ] Deployed Grafana and connected to Prometheus
 - [ ] Created dashboards with PromQL queries
+- [ ] Understood what Amazon CloudWatch and AWS X-Ray provide
 - [ ] Instrumented a sample application with metrics
 - [ ] Built an AI agent with n8n for automated responses
 - [ ] Tested agent detection and alerting

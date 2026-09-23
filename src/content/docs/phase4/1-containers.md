@@ -16,7 +16,7 @@ Containerization is a modern approach to deploying and managing applications and
 - Isolation between applications
 
 There are many containerization tools available like Docker, Podman, Containerd, etc.
-In this topic, you'll learn how to use tools like Docker to create these isolated environments and explore how cloud platforms like AWS, Azure, and GCP support containerized workloads.
+In this topic, you'll learn how to use tools like Docker to create these isolated environments and explore how AWS (Amazon Web Services) supports containerized workloads, starting with storing your images in Amazon ECR.
 You'll also learn how to leverage containers to run MCP servers, which enable applications to integrate with LLMs and external AI tools.
 
 ---
@@ -35,11 +35,17 @@ You'll also learn how to leverage containers to run MCP servers, which enable ap
 ### Container Registries
 
 - What is a [Container Registry?](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/)
-- How to containerize an application and deploy on different container registries:
-  - [DockerHub](https://docs.docker.com/get-started/workshop/04_sharing_app/)
-  - [AWS ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html)
-  - [Azure Container Registry](https://learn.microsoft.com/en-us/training/modules/deploy-use-azure-container-registry/)
-  - [Google Container Registry](https://www.youtube.com/watch?v=D1_FC6pGutQ)
+- How to containerize an application and push it to a container registry:
+  - [Docker Hub](https://docs.docker.com/get-started/workshop/04_sharing_app/) - a public registry, handy for learning and sharing images.
+  - [Amazon ECR (Elastic Container Registry)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) - AWS's private registry. This is where your images will live when you deploy to AWS later in this phase.
+  - [Pushing a Docker image to Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html)
+- Where containers run on AWS (you'll use these later in the phase):
+  - [Amazon ECS (Elastic Container Service)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html) - runs your containers without you managing any servers. The simplest option for beginners.
+  - [Amazon EKS (Elastic Kubernetes Service)](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) - managed Kubernetes, covered in Topic 4.
+
+:::note[Cost]
+Amazon ECR includes a small amount of free private storage for new accounts under the [AWS Free Tier](https://aws.amazon.com/free/); beyond that you pay per GB stored. Delete old images and repositories you no longer need, and consider adding an [ECR lifecycle policy](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html) to clean them up automatically.
+:::
 
 ---
 
@@ -51,8 +57,8 @@ You'll also learn how to leverage containers to run MCP servers, which enable ap
 2. Write a Dockerfile for the application
 3. Build the Docker image
 4. Run the container locally and test functionality
-5. Create an account on DockerHub or another container registry
-6. Tag and push your image to the registry
+5. Create a private repository in Amazon ECR (or use a Docker Hub account if you want a quick start)
+6. Authenticate Docker to ECR with the AWS CLI (`aws ecr get-login-password`), then tag and push your image to the repository
 7. Pull and run your image on a different machine to verify portability
 
 ### Run the GitHub MCP Server Locally as a Container
@@ -117,6 +123,6 @@ Before moving on, make sure you have:
 - [ ] Learned Docker basics and architecture
 - [ ] Written a Dockerfile for an application
 - [ ] Built and ran a container locally
-- [ ] Pushed an image to a container registry
+- [ ] Pushed an image to a container registry (ideally Amazon ECR)
 - [ ] Set up and tested the GitHub MCP Server
 - [ ] Understood container networking and storage
