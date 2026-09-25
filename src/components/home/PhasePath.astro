@@ -1,0 +1,220 @@
+---
+// The curriculum as a vertical timeline. Links are root-relative; the
+// base-links integration adds the GitHub Pages base path at build time.
+const phases = [
+	{
+		n: 0,
+		title: 'Starting from zero',
+		href: '/phase0/',
+		weeks: '3–4 weeks',
+		blurb: 'What IT, Linux, networking, programming and the cloud actually are.',
+		topics: ['Linux', 'Networking', 'Programming', 'Cloud models', 'DevOps'],
+		outcome: 'A clear picture of what cloud engineers do',
+	},
+	{
+		n: 1,
+		title: 'Linux and Bash',
+		href: '/phase1/',
+		weeks: '2–3 weeks',
+		blurb: 'Set up your machine and AWS account, then prove your Linux skills.',
+		topics: ['Git & GitHub', 'AWS CLI', 'SSH', 'Linux CLI', 'IaC basics'],
+		outcome: 'A completed Linux Capture The Flag lab',
+	},
+	{
+		n: 2,
+		title: 'Programming & AI',
+		href: '/phase2/',
+		weeks: '4–5 weeks',
+		blurb: 'Learn Python and build a real web API with AI features.',
+		topics: ['Python', 'REST APIs', 'FastAPI', 'Databases', 'Amazon Bedrock'],
+		outcome: 'A working Journal API with an AI feature',
+	},
+	{
+		n: 3,
+		title: 'Cloud Fundamentals',
+		href: '/phase3/',
+		weeks: '4–5 weeks',
+		blurb: 'Learn the core AWS services by putting your API on the internet.',
+		topics: ['EC2', 'IAM', 'VPC', 'RDS', 'Cost control'],
+		outcome: 'Your Journal API live on AWS',
+	},
+	{
+		n: 4,
+		title: 'DevOps',
+		href: '/phase4/',
+		weeks: '4–5 weeks',
+		blurb: 'Automate how your app is built, deployed and watched.',
+		topics: ['Docker', 'GitHub Actions', 'Terraform', 'ECS & EKS', 'CloudWatch'],
+		outcome: 'An automated build, deploy and monitoring pipeline',
+	},
+	{
+		n: 5,
+		title: 'Cloud Security',
+		href: '/phase5/',
+		weeks: '3–4 weeks',
+		blurb: 'Secure everything you built, from identity to incident response.',
+		topics: ['IAM', 'KMS & secrets', 'WAF', 'GuardDuty', 'Incident response'],
+		outcome: 'A hardened, production-ready Journal API',
+	},
+];
+---
+
+<ol class="path not-content">
+	{
+		phases.map((p) => (
+			<li class="phase">
+				<span class="node" aria-hidden="true">{p.n}</span>
+				<a class="card" href={p.href}>
+					<div class="head">
+						<span class="label">Phase {p.n}</span>
+						<span class="weeks">{p.weeks}</span>
+					</div>
+					<h3>{p.title}</h3>
+					<p class="blurb">{p.blurb}</p>
+					<ul class="chips">
+						{p.topics.map((t) => <li>{t}</li>)}
+					</ul>
+					<p class="outcome">
+						<span>You finish with</span> {p.outcome}
+					</p>
+				</a>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.path {
+		list-style: none;
+		padding: 0;
+		margin: 1.5rem 0 0;
+		position: relative;
+		display: grid;
+		gap: 1rem;
+	}
+
+	.path::before {
+		content: '';
+		position: absolute;
+		inset-block: 1.25rem 1.25rem;
+		inset-inline-start: 1.1rem;
+		width: 2px;
+		background: linear-gradient(var(--sl-color-accent), #818cf8 60%, var(--cc-amber));
+		opacity: 0.55;
+	}
+
+	.phase {
+		position: relative;
+		display: grid;
+		grid-template-columns: 2.25rem 1fr;
+		gap: 1rem;
+		margin: 0;
+	}
+
+	.node {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		place-items: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		margin-top: 1.1rem;
+		border-radius: 999px;
+		background: var(--sl-color-black);
+		border: 2px solid var(--sl-color-accent);
+		color: var(--sl-color-white);
+		font-weight: 700;
+		font-size: var(--sl-text-sm);
+	}
+
+	.card {
+		display: block;
+		padding: 1.1rem 1.25rem 1.2rem;
+		border: 1px solid var(--cc-card-border);
+		border-radius: var(--cc-radius);
+		background: var(--cc-card);
+		color: inherit;
+		text-decoration: none;
+		transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.card:hover {
+		border-color: var(--sl-color-accent);
+		transform: translateY(-2px);
+		box-shadow: 0 10px 28px var(--cc-glow);
+	}
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.label {
+		font-size: var(--sl-text-xs);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-accent);
+	}
+
+	.weeks {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		border: 1px solid var(--cc-card-border);
+		border-radius: 999px;
+		padding: 0.1rem 0.6rem;
+		white-space: nowrap;
+	}
+
+	h3 {
+		margin: 0.3rem 0 0.25rem;
+		font-size: var(--sl-text-h4);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--sl-color-white);
+	}
+
+	.blurb {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+	}
+
+	.chips {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		padding: 0;
+		margin: 0.85rem 0 0;
+	}
+
+	.chips li {
+		margin: 0;
+		font-size: var(--sl-text-xs);
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-accent-high);
+		font-weight: 500;
+	}
+
+	.outcome {
+		margin: 0.9rem 0 0;
+		padding-top: 0.75rem;
+		border-top: 1px dashed var(--cc-card-border);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-1);
+	}
+
+	.outcome span {
+		display: block;
+		font-size: var(--sl-text-xs);
+		color: var(--cc-amber);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin-bottom: 0.15rem;
+	}
+</style>
