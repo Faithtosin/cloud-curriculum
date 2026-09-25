@@ -5,7 +5,7 @@ sidebar:
   label: Overview
 ---
 
-Congratulations! You’ve reached the end of the **Learn to Cloud** journey.
+Congratulations! You’ve reached the end of the curriculum.
 
 ## Contributing & Feedback
 
