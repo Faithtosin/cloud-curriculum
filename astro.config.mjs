@@ -17,6 +17,12 @@ export default defineConfig({
 		starlight({
 			title: 'Cloud Curriculum',
 			description: 'A free, beginner-friendly path to becoming a cloud engineer, AWS first.',
+			logo: { src: './src/assets/logo.svg' },
+			customCss: [
+				'@fontsource-variable/inter',
+				'@fontsource-variable/jetbrains-mono',
+				'./src/styles/custom.css',
+			],
 			components: { Footer: './src/components/Footer.astro' },
 			sidebar: [
 				{ label: 'Start here', link: '/' },

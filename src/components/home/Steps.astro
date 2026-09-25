@@ -1,0 +1,67 @@
+---
+const steps = [
+	{
+		title: 'Learn',
+		body: 'Every topic links to hand-picked free videos, docs and articles. No paywalls.',
+	},
+	{
+		title: 'Test yourself',
+		body: 'Use the ready-made prompts to have an AI assistant quiz you until it sticks.',
+	},
+	{
+		title: 'Build',
+		body: 'Each phase ends with a hands-on project on AWS that you can show employers.',
+	},
+];
+---
+
+<ol class="steps not-content">
+	{
+		steps.map((s, i) => (
+			<li>
+				<span class="num">{String(i + 1).padStart(2, '0')}</span>
+				<h3>{s.title}</h3>
+				<p>{s.body}</p>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.steps {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+		gap: 1rem;
+		padding: 0;
+		margin: 1.5rem 0 0;
+	}
+
+	li {
+		margin: 0;
+		padding: 1.25rem;
+		border: 1px solid var(--cc-card-border);
+		border-radius: var(--cc-radius);
+		background: var(--cc-card);
+	}
+
+	.num {
+		font-family: var(--__sl-font-mono);
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--cc-amber);
+	}
+
+	h3 {
+		margin: 0.35rem 0 0.35rem;
+		font-size: var(--sl-text-h4);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--sl-color-white);
+	}
+
+	p {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+	}
+</style>

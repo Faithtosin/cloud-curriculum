@@ -1,0 +1,72 @@
+---
+const stats = [
+	{ value: '6', label: 'phases, zero to secure' },
+	{ value: '20–26', label: 'weeks, self-paced' },
+	{ value: '5', label: 'portfolio projects' },
+	{ value: '$0', label: 'course cost' },
+];
+---
+
+<ul class="stats not-content">
+	{
+		stats.map((s) => (
+			<li>
+				<strong>{s.value}</strong>
+				<span>{s.label}</span>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.stats {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0;
+		padding: 0;
+		margin: 0.5rem 0 1rem;
+		border: 1px solid var(--cc-card-border);
+		border-radius: var(--cc-radius);
+		background: var(--cc-card);
+		overflow: hidden;
+	}
+
+	li {
+		margin: 0;
+		padding: 1.1rem 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		border-inline-start: 1px solid var(--cc-card-border);
+	}
+
+	li:first-child {
+		border-inline-start: 0;
+	}
+
+	strong {
+		font-size: 1.9rem;
+		line-height: 1.1;
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		color: var(--sl-color-white);
+	}
+
+	span {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+
+	@media (max-width: 40rem) {
+		.stats {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		li:nth-child(3) {
+			border-inline-start: 0;
+		}
+		li:nth-child(n + 3) {
+			border-top: 1px solid var(--cc-card-border);
+		}
+	}
+</style>

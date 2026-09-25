@@ -1,0 +1,248 @@
+/* Cloud Curriculum theme: deep navy, sky-blue accent, amber highlight. */
+
+/* ---------- Tokens ---------- */
+:root {
+	--sl-font: 'Inter Variable', system-ui, sans-serif;
+	--sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+	/* Dark (Starlight's default) */
+	--sl-color-accent-low: #0c2a46;
+	--sl-color-accent: #38bdf8;
+	--sl-color-accent-high: #bae6fd;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e6edf7;
+	--sl-color-gray-2: #c3cedf;
+	--sl-color-gray-3: #8b9bb4;
+	--sl-color-gray-4: #56657e;
+	--sl-color-gray-5: #2a3850;
+	--sl-color-gray-6: #152238;
+	--sl-color-black: #0a1628;
+
+	--cc-amber: #f59e0b;
+	--cc-card: #10203a;
+	--cc-card-border: #203352;
+	--cc-glow: rgba(56, 189, 248, 0.18);
+	--cc-radius: 14px;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e0f2fe;
+	--sl-color-accent: #0369a1;
+	--sl-color-accent-high: #0c4a6e;
+	--sl-color-white: #0a1628;
+	--sl-color-gray-1: #152238;
+	--sl-color-gray-2: #2a3850;
+	--sl-color-gray-3: #4b5a73;
+	--sl-color-gray-4: #7d8ba1;
+	--sl-color-gray-5: #c9d3e1;
+	--sl-color-gray-6: #eaf0f7;
+	--sl-color-gray-7: #f5f8fc;
+	--sl-color-black: #ffffff;
+
+	--cc-amber: #b45309;
+	--cc-card: #ffffff;
+	--cc-card-border: #dbe3ee;
+	--cc-glow: rgba(3, 105, 161, 0.1);
+}
+
+/* ---------- Base typography ---------- */
+body {
+	font-feature-settings: 'cv11', 'ss01';
+	-webkit-font-smoothing: antialiased;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4) {
+	letter-spacing: -0.02em;
+	font-weight: 700;
+}
+
+h1#_top {
+	letter-spacing: -0.03em;
+	font-weight: 800;
+}
+
+/* ---------- Header & sidebar ---------- */
+.site-title {
+	gap: 0.6rem;
+	font-weight: 750;
+	letter-spacing: -0.02em;
+	color: var(--sl-color-white);
+}
+
+.site-title img {
+	height: 2rem;
+	width: auto;
+}
+
+header.header {
+	backdrop-filter: saturate(160%) blur(10px);
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+nav.sidebar .top-level > li > details > summary .group-label,
+nav.sidebar .top-level > li > a {
+	font-weight: 600;
+}
+
+nav.sidebar a[aria-current='page'] {
+	border-radius: 8px;
+	font-weight: 600;
+}
+
+/* ---------- Content polish ---------- */
+.sl-markdown-content table {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--cc-card-border);
+	border-radius: var(--cc-radius);
+	overflow: hidden;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content :is(th, td) {
+	border: 0;
+	border-bottom: 1px solid var(--cc-card-border);
+	padding: 0.65rem 0.9rem;
+}
+
+.sl-markdown-content tr:last-child td {
+	border-bottom: 0;
+}
+
+.sl-markdown-content th {
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-white);
+	font-weight: 600;
+	text-align: left;
+}
+
+.sl-markdown-content blockquote {
+	border-inline-start: 3px solid var(--cc-amber);
+	background: var(--sl-color-gray-6);
+	border-radius: 0 10px 10px 0;
+	padding: 0.75rem 1rem;
+	color: var(--sl-color-gray-2);
+}
+
+.starlight-aside {
+	border-radius: 12px;
+}
+
+.sl-markdown-content hr {
+	border: 0;
+	border-top: 1px solid var(--cc-card-border);
+	margin-block: 2rem;
+}
+
+.sl-markdown-content :not(pre) > code {
+	border-radius: 6px;
+	padding: 0.1em 0.35em;
+}
+
+.expressive-code .frame {
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+/* Task-list checkboxes */
+.sl-markdown-content input[type='checkbox'] {
+	accent-color: var(--sl-color-accent);
+}
+
+/* Cards and link cards used in content */
+.card,
+.sl-link-card {
+	border-radius: var(--cc-radius) !important;
+	border-color: var(--cc-card-border) !important;
+	background: var(--cc-card) !important;
+	transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sl-link-card:hover {
+	border-color: var(--sl-color-accent) !important;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px var(--cc-glow);
+}
+
+.pagination-links a {
+	border-radius: var(--cc-radius);
+	border-color: var(--cc-card-border);
+}
+
+.pagination-links a:hover {
+	border-color: var(--sl-color-accent);
+}
+
+/* ---------- Splash (home) page ---------- */
+[data-has-hero] .main-frame {
+	background:
+		radial-gradient(900px 480px at 85% -10%, var(--cc-glow), transparent 70%),
+		radial-gradient(700px 400px at -10% 20%, rgba(245, 158, 11, 0.07), transparent 70%);
+}
+
+[data-has-hero] .hero {
+	padding-block: 2.5rem 1.5rem;
+}
+
+[data-has-hero] .hero h1 {
+	font-size: clamp(2.4rem, 6vw, 4rem);
+	line-height: 1.05;
+	letter-spacing: -0.035em;
+	font-weight: 800;
+	color: var(--sl-color-white);
+}
+
+[data-has-hero] .hero h1 .grad {
+	background: linear-gradient(90deg, #38bdf8, #818cf8 55%, #f59e0b);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+:root[data-theme='light'] [data-has-hero] .hero h1 .grad {
+	background: linear-gradient(90deg, #0369a1, #4f46e5 60%, #b45309);
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+
+[data-has-hero] .hero .tagline {
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	color: var(--sl-color-gray-2);
+	max-width: 36rem;
+}
+
+[data-has-hero] .hero .actions a.primary {
+	background: var(--sl-color-accent);
+	color: var(--sl-color-black);
+	border-color: var(--sl-color-accent);
+	font-weight: 600;
+	box-shadow: 0 6px 20px var(--cc-glow);
+}
+
+[data-has-hero] .hero .actions a.primary:hover {
+	filter: brightness(1.08);
+}
+
+[data-has-hero] .hero .actions a.secondary,
+[data-has-hero] .hero .actions a.minimal {
+	font-weight: 600;
+}
+
+[data-has-hero] .hero-html svg {
+	width: 100%;
+	height: auto;
+	max-width: 440px;
+}
+
+@media (max-width: 50rem) {
+	[data-has-hero] .hero-html {
+		display: none;
+	}
+}
+
+/* Splash pages don't need the "next page" box */
+[data-has-hero] .pagination-links {
+	display: none;
+}

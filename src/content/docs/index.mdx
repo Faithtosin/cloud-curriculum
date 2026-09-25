@@ -2,8 +2,43 @@
 title: Become a cloud engineer, from zero
 description: A free, beginner-friendly path to becoming a cloud engineer, AWS first.
 template: splash
+prev: false
+next: false
 hero:
-  tagline: A step-by-step path from "what is Linux?" to deploying and securing real applications on AWS. No experience needed.
+  title: Become a <span class="grad">cloud engineer</span>, from zero
+  tagline: A free, step-by-step path from "what is Linux?" to deploying and securing real applications on AWS. No experience needed.
+  image:
+    html: |
+      <svg viewBox="0 0 440 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A path of six steps rising to a cloud">
+        <defs>
+          <linearGradient id="hp-route" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#38bdf8"/>
+            <stop offset="0.6" stop-color="#818cf8"/>
+            <stop offset="1" stop-color="#f59e0b"/>
+          </linearGradient>
+          <linearGradient id="hp-cloud" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#38bdf8" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#38bdf8" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+        <path d="M250 118h120a38 38 0 0 0 4-75.8A56 56 0 0 0 268 30a44 44 0 0 0-18 88Z" fill="url(#hp-cloud)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2"/>
+        <path d="M40 320 C 110 318, 90 250, 150 246 S 200 190, 238 186 S 280 132, 312 128" stroke="url(#hp-route)" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+        <g font-family="Inter Variable, system-ui, sans-serif" font-weight="700" font-size="13" text-anchor="middle">
+          <circle cx="40" cy="320" r="15" fill="var(--sl-color-black)" stroke="#38bdf8" stroke-width="2.5"/><text x="40" y="325" fill="var(--sl-color-white)">0</text>
+          <circle cx="98" cy="296" r="15" fill="var(--sl-color-black)" stroke="#38bdf8" stroke-width="2.5"/><text x="98" y="301" fill="var(--sl-color-white)">1</text>
+          <circle cx="150" cy="246" r="15" fill="var(--sl-color-black)" stroke="#5fa6fa" stroke-width="2.5"/><text x="150" y="251" fill="var(--sl-color-white)">2</text>
+          <circle cx="200" cy="208" r="15" fill="var(--sl-color-black)" stroke="#818cf8" stroke-width="2.5"/><text x="200" y="213" fill="var(--sl-color-white)">3</text>
+          <circle cx="245" cy="178" r="15" fill="var(--sl-color-black)" stroke="#b894b0" stroke-width="2.5"/><text x="245" y="183" fill="var(--sl-color-white)">4</text>
+          <circle cx="288" cy="144" r="15" fill="var(--sl-color-black)" stroke="#f59e0b" stroke-width="2.5"/><text x="288" y="149" fill="var(--sl-color-white)">5</text>
+        </g>
+        <g font-family="JetBrains Mono Variable, ui-monospace, monospace" font-size="11" fill="var(--sl-color-gray-3)">
+          <text x="62" y="352">$ ssh ubuntu@server</text>
+          <text x="300" y="80" fill="#38bdf8">AWS</text>
+        </g>
+        <circle cx="372" cy="150" r="4" fill="#f59e0b"/>
+        <circle cx="398" cy="182" r="2.5" fill="#38bdf8"/>
+        <circle cx="352" cy="200" r="2" fill="#818cf8"/>
+      </svg>
   actions:
     - text: Start with Phase 0
       link: /phase0/
@@ -13,25 +48,25 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Stats from '../../components/home/Stats.astro';
+import PhasePath from '../../components/home/PhasePath.astro';
+import Steps from '../../components/home/Steps.astro';
+import CtaBand from '../../components/home/CtaBand.astro';
+
+<Stats />
 
 {/* TODO(owner): replace this intro with your own voice and story. */}
 
 ## The path
 
-<CardGrid>
-	<LinkCard title="Phase 0: Starting from zero" href="/phase0/" description="IT, networking, programming and cloud basics. About 3–4 weeks." />
-	<LinkCard title="Phase 1: Linux and Bash" href="/phase1/" description="Version control, the CLI, SSH, and a hands-on Linux CTF." />
-	<LinkCard title="Phase 2: Programming & AI" href="/phase2/" description="Python, REST APIs, FastAPI, databases and GenAI APIs." />
-	<LinkCard title="Phase 3: Cloud Fundamentals" href="/phase3/" description="Compute, IAM, networking, databases and cost management on AWS." />
-	<LinkCard title="Phase 4: DevOps" href="/phase4/" description="Containers, CI/CD, Terraform, Kubernetes and monitoring." />
-	<LinkCard title="Phase 5: Cloud Security" href="/phase5/" description="IAM, secrets, network security, monitoring and incident response." />
-</CardGrid>
+Six phases, each building on the last. You carry one app, the Journal API, from your laptop to a secured deployment on AWS.
+
+<PhasePath />
 
 ## How it works
 
-<CardGrid>
-	<Card title="Learn" icon="open-book">Each topic links to curated free resources.</Card>
-	<Card title="Test yourself" icon="approve-check">Use the prompts to quiz yourself with an AI assistant.</Card>
-	<Card title="Build" icon="laptop">Every phase ends with a hands-on project you can show employers.</Card>
-</CardGrid>
+<Steps />
+
+<CtaBand title="Ready to start?" href="/phase0/" cta="Start with Phase 0">
+	New to tech? Begin at Phase 0. Already comfortable with a terminal? Jump to Phase 1.
+</CtaBand>
