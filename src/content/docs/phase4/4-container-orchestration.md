@@ -57,13 +57,19 @@ For local development, you can use tools like:
 - [Minikube](https://minikube.sigs.k8s.io/docs/): Runs a single-node Kubernetes cluster locally.
 - [Kind](https://kind.sigs.k8s.io/): Runs Kubernetes clusters in Docker containers.
 
-### 2. **Cloud Providers**
-Most cloud providers offer managed Kubernetes services:
-- **AWS**: [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
-- **Azure**: [Azure Kubernetes Service (AKS)](https://learn.microsoft.com/en-us/azure/aks/)
-- **Google Cloud**: [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview)
+### 2. **Running Containers on AWS**
+AWS gives you two main ways to run containers in the cloud:
 
-Here is a quick example of setting up a [minimal k8s cluster on Azure AKS using Terraform.](https://youtu.be/J_aInEIBzE0?si=vTdvDp-6Id7IzGzx)
+- **[Amazon ECS (Elastic Container Service)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html) with [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)**: AWS's own container orchestrator. With Fargate you don't manage any servers - you describe your container (a *task definition*) and AWS runs it. It is simpler than Kubernetes and the best first step for beginners who just want their container running in the cloud.
+- **[Amazon EKS (Elastic Kubernetes Service)](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)**: managed Kubernetes. AWS runs the Kubernetes control plane (the "master" part of the cluster) for you, and you run your workloads on worker nodes (EC2 instances or Fargate). Everything you learn with Minikube or Kind applies here, because it's standard Kubernetes.
+
+Not sure which to pick? Start with ECS on Fargate, then try EKS once you are comfortable with Kubernetes. The [Containers on AWS](https://aws.amazon.com/containers/) overview compares the options. Other clouds have similar managed Kubernetes offerings (for example Google Kubernetes Engine), but this course uses AWS.
+
+:::caution[EKS is not free]
+The EKS control plane is billed per hour for every cluster, even when nothing is running on it, and it is **not** covered by the AWS Free Tier. Worker nodes, load balancers and NAT gateways cost extra. Check [Amazon EKS pricing](https://aws.amazon.com/eks/pricing/), practise on Minikube or Kind first, and if you try EKS, delete the cluster (for example with `eksctl delete cluster`) as soon as you're done. Setting up an AWS Budget alert beforehand is a good safety net.
+:::
+
+To try EKS, follow the [Getting started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) guide, which uses `eksctl` (a command-line tool that creates a cluster for you) or the AWS Management Console.
 
 ## Basic Commands
 
@@ -144,7 +150,7 @@ Use these questions to test your understanding of Kubernetes concepts:
 7. What are ConfigMaps and Secrets, and how are they used in Kubernetes?
 8. What is the difference between `kubectl apply` and `kubectl create`?
 9. How can you scale a deployment in Kubernetes?
-10. What are the benefits of using managed Kubernetes services like EKS, AKS, or GKE?
+10. What are the benefits of using a managed Kubernetes service like Amazon EKS, and when would Amazon ECS on Fargate be a simpler choice?
 
 These questions will help reinforce your understanding of Kubernetes and its core concepts.
 
@@ -152,6 +158,8 @@ These questions will help reinforce your understanding of Kubernetes and its cor
 
 - [Kubernetes Official Documentation](https://kubernetes.io/docs/concepts/)
 - [Kubernetes the Hard Way by Kelsey Hightower](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+- [Amazon EKS User Guide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
+- [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 
 ---
 
@@ -165,4 +173,4 @@ Before moving on, make sure you have:
 - [ ] Exposed a deployment as a service
 - [ ] Used kubectl commands for cluster management
 - [ ] Understood ConfigMaps and Secrets
-- [ ] (Optional) Explored managed Kubernetes services (EKS, AKS, GKE)
+- [ ] (Optional) Explored Amazon EKS (and deleted the cluster afterwards) or deployed a container to Amazon ECS on Fargate

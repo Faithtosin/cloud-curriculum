@@ -21,17 +21,21 @@ Cloud services are billed based on consumption. Every VM, database, and API call
 
 - Study
 
+### AWS Free Tier
+
+New AWS accounts get the [AWS Free Tier](https://aws.amazon.com/free/), which lets you use many services at no cost up to certain limits. Learn how to [track your Free Tier usage](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html) so you know when you're getting close to being charged.
+
 ### Cost Management Overview
 
-[Azure](https://learn.microsoft.com/en-us/azure/cost-management-billing/cost-management-billing-overview) | [AWS](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/what-is-billing.html) | [GCP](https://cloud.google.com/billing/docs/how-to)
+[AWS Billing and Cost Management](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/what-is-billing.html) and [AWS Cost Explorer](https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html) (charts of what you've spent and on which services)
 
 ### Budgeting & Alerts
 
-[Azure](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets) | [AWS](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create.html) | [GCP](https://cloud.google.com/billing/docs/how-to/budgets)
+[AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) and [creating a budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create.html)
 
 ### Pricing Calculators
 
-[Azure](https://azure.microsoft.com/en-us/pricing/calculator/) | [AWS](https://calculator.aws/#/) | [GCP](https://cloud.google.com/products/calculator)
+[AWS Pricing Calculator](https://calculator.aws/#/)
 
 --- 
 
@@ -52,9 +56,10 @@ Once you've reviewed the resources, test your understanding with these prompts:
 
 Set up cost monitoring for your cloud infrastructure:
 
-- Review your current month's charges in the billing dashboard
+- Review your current month's charges in the AWS Billing and Cost Management console and in Cost Explorer
 - Identify potential cost saving opportunities in your current spending
-- Set up a budget alert for $50/month (or your chosen limit)
+- Set up an AWS Budgets alert for $50/month (or a lower limit, such as $5-$10, if you're staying within the Free Tier)
+- Check your Free Tier usage and confirm nothing is close to its limit
 
 ---
 
@@ -62,10 +67,10 @@ Set up cost monitoring for your cloud infrastructure:
 
 Before moving on, make sure you have:
 - [ ] Understood how cloud billing and consumption-based pricing works
-- [ ] Reviewed your cloud provider's billing structure
-- [ ] Logged into your billing dashboard and reviewed current costs
-- [ ] Created a budget and set up cost alerts
-- [ ] Used the pricing calculator to estimate costs
+- [ ] Reviewed how AWS bills for EC2, storage, data transfer and databases
+- [ ] Logged into the AWS Billing console and reviewed current costs in Cost Explorer
+- [ ] Created a budget and set up cost alerts in AWS Budgets
+- [ ] Used the AWS Pricing Calculator to estimate costs
 - [ ] Reviewed cost optimization strategies (stopping unused resources, right-sizing instances)
 
 ---

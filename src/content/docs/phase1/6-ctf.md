@@ -12,6 +12,6 @@ As you complete each challenge, we encourage you to take note of any concepts or
 
 ## How to access
 
-This CTF challenge requires you to deploy a lab environment from your local machine to your preferred cloud provider, everything is automated via files we provide. We opted for this instead of hosted labs because it will give you the closest to real world experience.
+This CTF challenge requires you to deploy a lab environment from your local machine to your AWS account (the one you set up in [Cloud CLI Setup](/phase1/2-cli/)); everything is automated via files we provide. We opted for this instead of hosted labs because it will give you the closest to real world experience.
 
-Start by going to the [repo](https://github.com/learntocloud/ltc-linux-challenge).
+Start by going to the [repo](https://github.com/learntocloud/ltc-linux-challenge) and follow the AWS instructions. When you're finished, destroy the lab environment so it doesn't keep costing you money.

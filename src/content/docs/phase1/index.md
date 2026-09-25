@@ -7,7 +7,7 @@ sidebar:
 
 > ⏱️ **Estimated time:** 2-3 weeks
 
-Here at Learn to Cloud, we like to get hands-on as soon as possible. So, we've prepared a Capture The Flag (CTF) lab for you to practice your Linux and Bash. Before you can access them, you'll spend time learning about the lab and setting it up. Don't worry – along the way, we'll provide tips, documentation links, resources, and more to help you succeed.
+This course gets you hands-on as soon as possible. You'll practice your Linux and Bash in a Capture The Flag (CTF) lab from the open-source Learn to Cloud project. Before you can access the challenges, you'll spend time learning about the lab and setting it up. Don't worry – along the way, you'll find tips, documentation links, resources, and more to help you succeed.
 
 ---
 

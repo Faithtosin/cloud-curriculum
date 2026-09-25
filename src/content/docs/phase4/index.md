@@ -7,7 +7,11 @@ sidebar:
 
 > ⏱️ **Estimated time:** 4-5 weeks
 
-Welcome to Phase 4! This phase covers DevOps fundamentals - the practices and tools that enable teams to deliver software faster and more reliably. You'll learn containerization, CI/CD pipelines, Infrastructure as Code, and monitoring.
+Welcome to Phase 4! This phase covers DevOps fundamentals - the practices and tools that enable teams to deliver software faster and more reliably. You'll learn containerization, CI/CD pipelines, Infrastructure as Code, and monitoring, using AWS as your cloud provider (Amazon ECR, ECS/Fargate, EKS and CloudWatch).
+
+:::caution[Watch your AWS bill]
+Some services in this phase are not covered by the [AWS Free Tier](https://aws.amazon.com/free/) - most notably the Amazon EKS control plane, load balancers and NAT gateways, which are billed by the hour. Set up an AWS Budget alert before you start, and tear down resources as soon as you finish each exercise.
+:::
 
 ---
 

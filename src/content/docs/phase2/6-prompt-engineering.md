@@ -146,7 +146,7 @@ Format your response as JSON.
 
 Use this workflow when developing prompts:
 
-1. **Start in the playground**: Test prompts in your provider's web interface
+1. **Start in the playground**: Test prompts in the Amazon Bedrock playground (a web page in the AWS Console where you can chat with a model without writing code)
 2. **Iterate rapidly**: Try variations, adjust wording, add examples
 3. **Test edge cases**: Very short entries, very long entries, unclear entries
 4. **Measure quality**: Is the output consistent? Accurate? Useful?
@@ -155,7 +155,7 @@ Use this workflow when developing prompts:
 
 ## Exercise: Develop Your Analysis Prompt
 
-In your chosen provider's playground, create a prompt that:
+In the Amazon Bedrock playground, create a prompt that:
 
 1. Takes a journal entry as input
 2. Returns JSON with these fields:
@@ -280,7 +280,7 @@ The model will continue from where you left off, ensuring the correct format.
 
 - Study: [OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
 - Study: [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
-- Study: [Azure OpenAI Prompt Engineering](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering)
+- Study: [Amazon Bedrock prompt engineering concepts](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html)
 
 ---
 

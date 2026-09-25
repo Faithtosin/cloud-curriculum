@@ -9,7 +9,9 @@ sidebar:
 > 
 > Author: [Ethan Troy](https://hackidle.com)
 
-Welcome to Phase 5! This phase focuses on securing the cloud applications and infrastructure you've built throughout your journey. You'll take the Journal API application from previous phases and implement enterprise-grade security controls, monitoring, and incident response capabilities.
+Welcome to Phase 5! This phase focuses on securing the cloud applications and infrastructure you've built throughout your journey. You'll take the Journal API application from previous phases and implement enterprise-grade security controls, monitoring, and incident response capabilities on **AWS (Amazon Web Services)**.
+
+The phase is organized around the **NIST CSF** (the U.S. National Institute of Standards and Technology **C**yber**s**ecurity **F**ramework). The CSF groups security work into plain-English functions such as *Identify*, *Protect*, *Detect*, *Respond* and *Recover*. Each topic below maps to one or more of those functions.
 
 ---
 
@@ -31,7 +33,15 @@ By the end of this phase, you will:
 - Completed Phase 3: Cloud Platform Fundamentals (have deployed infrastructure)
 - Completed Phase 4: DevOps Fundamentals (recommended but not required)
 - Access to the Journal API application and infrastructure from previous phases
-- A cloud platform account (AWS, Azure, or GCP) with administrative permissions
+- An AWS account where you can sign in with administrator permissions (ideally through IAM Identity Center or an admin IAM role, not the root user)
+
+:::caution[Watch your bill]
+Several AWS security services used in this phase (for example Amazon GuardDuty, AWS Security Hub, Amazon Inspector and AWS Config) offer a **free trial** (typically 30 days) and then **charge based on usage**. Before you start:
+
+- Create an [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) alert (for example at $10 and $25).
+- Write down every service you turn on, so you can turn it off later.
+- When you finish the phase, disable the paid services and delete the resources you created.
+:::
 
 ---
 
@@ -42,7 +52,7 @@ This phase takes the practical foundation you've built in Phases 1-4 and adds th
 | Phase | How It Connects |
 |-------|-----------------|
 | **Phase 1-2** | Use your Linux and programming skills to configure security tools |
-| **Phase 3** | Secure the cloud resources and networking you deployed |
+| **Phase 3** | Secure the AWS resources and networking you deployed |
 | **Phase 4** | Add security scanning and monitoring to your CI/CD pipelines |
 | **Phase 5** | Make everything production-ready with enterprise security controls |
 
@@ -50,10 +60,10 @@ This phase takes the practical foundation you've built in Phases 1-4 and adds th
 Security isn't a separate discipline—it's an essential skill that enhances every aspect of cloud engineering.
 :::
 
-For an excellent foundation in cloud security thinking, read these provider security overviews:
-- [AWS Security Pillar - Well Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)  
-- [Microsoft Azure - Secure](https://learn.microsoft.com/en-us/azure/architecture/framework/security/overview)
-- [Google Cloud - Security Foundations](https://cloud.google.com/architecture/security-foundations)
+For an excellent foundation in cloud security thinking, read these AWS overviews:
+- [AWS Well-Architected Framework - Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)  
+- [AWS Security Documentation (all security services)](https://docs.aws.amazon.com/security/)
+- [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) - what AWS secures vs. what *you* secure
 
 ---
 
@@ -80,6 +90,7 @@ Before completing this phase, make sure you can answer "yes" to these:
 - [ ] I implemented security monitoring and alerting
 - [ ] I can detect and respond to security incidents
 - [ ] I completed the capstone project
+- [ ] I turned off paid security services and deleted resources I no longer need
 
 ---
 
@@ -87,9 +98,7 @@ Before completing this phase, make sure you can answer "yes" to these:
 
 | Provider | Certification |
 |----------|--------------|
-| AWS | AWS Certified Security - Specialty |
-| Azure | AZ-500 Azure Security Engineer Associate |
-| GCP | Professional Cloud Security Engineer |
+| AWS | [AWS Certified Security - Specialty](https://aws.amazon.com/certification/certified-security-specialty/) |
 | Vendor-Neutral | CompTIA Security+ (good foundation) |
 
 ---
@@ -98,7 +107,7 @@ Before completing this phase, make sure you can answer "yes" to these:
 
 **Practice Labs:**
 - [AWS Well-Architected Security Workshop](https://catalog.workshops.aws/well-architected-security/)
-- [Azure Security Lab](https://github.com/azurecitadel/azure-security-lab)
+- [AWS Skill Builder](https://skillbuilder.aws/) - free security learning plans and labs
 - [Cloud Security Alliance Guidance](https://cloudsecurityalliance.org/research/guidance/)
 
 **Communities:**

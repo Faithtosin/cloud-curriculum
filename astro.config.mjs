@@ -1,11 +1,18 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import baseLinks from './src/plugins/base-links.mjs';
+
+// GitHub Pages serves the site at https://faithtosin.github.io/cloud-curriculum/
+const site = 'https://faithtosin.github.io';
+const base = '/cloud-curriculum';
 
 const phase = (label, directory) => ({ label, collapsed: true, items: [{ autogenerate: { directory } }] });
 
 // https://astro.build/config
 export default defineConfig({
+	site,
+	base,
 	integrations: [
 		starlight({
 			title: 'Cloud Curriculum',
@@ -23,5 +30,6 @@ export default defineConfig({
 				{ label: 'Credits & license', link: '/credits/' },
 			],
 		}),
+		baseLinks(),
 	],
 });

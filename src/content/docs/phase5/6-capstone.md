@@ -42,26 +42,32 @@ This represents the security standard expected in production environments.
 
 Before you start, ensure you have:
 
-1. **Your application running** - Journal API deployed and accessible
-2. **Administrative access** - Full permissions in your cloud account
-3. **Cost monitoring** - Set up billing alerts (target: under $50/month)
+1. **Your application running** - Journal API deployed and accessible on AWS
+2. **Administrative access** - Administrator permissions in your AWS account (through IAM Identity Center or an admin role, not the root user)
+3. **Cost monitoring** - Set up [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) alerts (target: under $50/month)
 4. **Documentation template** - Create folders for your security documentation
+
+:::caution[Free trials end]
+This capstone turns on services such as Amazon GuardDuty, AWS Security Hub, AWS Config and Amazon Inspector. Each has a free trial (typically 30 days) and then charges by usage. NAT Gateways, interface VPC endpoints, AWS WAF and KMS customer-managed keys also bill while they exist. Keep a list of everything you enable and follow the **Clean Up** section at the end.
+:::
 
 ## Part 1: Foundation Security (IAM & Network)
 
 ### 1.1: Implement Identity and Access Management
 
 **Create your IAM strategy:**
-- Design a service account for your Journal API application
+- Design an IAM role for your Journal API application (an EC2 instance profile, ECS task role or Lambda execution role—AWS's version of a "service account")
 - Create IAM roles following least privilege principle
-- Set up MFA for your administrative account
+- Set up MFA for your root user and your administrative sign-in (IAM Identity Center or IAM user)
 - Create an access matrix documenting who can access what
 
 **Implementation checklist:**
-- [ ] Journal API service account created with minimal permissions
+- [ ] Journal API IAM role created with minimal permissions (no long-lived access keys in the app)
 - [ ] Database access role separate from API role  
-- [ ] Monitoring service account for security tools
-- [ ] Administrative access requires MFA
+- [ ] Separate role for monitoring and security tools
+- [ ] Administrative access requires MFA; root user has MFA and no access keys
+- [ ] (Optional) Permission boundary applied to the application role
+- [ ] IAM Access Analyzer enabled and findings reviewed
 - [ ] All access documented in IAM matrix
 
 **Test your IAM:**
@@ -75,15 +81,17 @@ Before you start, ensure you have:
 - Create VPC with public and private subnets
 - Place your API in private subnet, load balancer in public
 - Configure security groups with minimum required access
-- Set up private endpoints for database connections
+- Keep your database (for example Amazon RDS) in a private subnet, and use VPC endpoints so the app can reach AWS services like Secrets Manager and S3 privately
 
 **Implementation checklist:**
-- [ ] VPC created with proper CIDR blocks
+- [ ] VPC created with proper CIDR blocks (the IP address ranges, e.g. `10.0.0.0/16`)
 - [ ] Public subnet for load balancer only
 - [ ] Private subnet for application and database
-- [ ] Security groups allow only necessary ports
+- [ ] Security groups allow only necessary ports (e.g. database security group only accepts traffic from the app's security group)
 - [ ] Database accessible only from application subnet
-- [ ] Internet access through NAT Gateway (if needed)
+- [ ] Internet access through NAT Gateway (if needed—remember it bills hourly)
+- [ ] (Optional) AWS WAF attached to the Application Load Balancer
+- [ ] VPC Flow Logs enabled
 
 **Test your network:**
 - Verify your API is not directly accessible from internet
@@ -95,19 +103,20 @@ Before you start, ensure you have:
 ### 2.1: Implement Data Protection
 
 **Secure your data:**
-- Enable encryption at rest for database and file storage
-- Configure TLS/SSL for all API communications
-- Move all secrets to a secrets management service
+- Enable encryption at rest for database and file storage (RDS encryption, EBS encryption by default, S3 default encryption) using AWS KMS keys
+- Configure TLS for all API communications
+- Move all secrets to AWS Secrets Manager (or Systems Manager Parameter Store `SecureString` parameters on a tight budget)
 - Set up automated encrypted backups
 
 **Implementation checklist:**
-- [ ] Database encryption enabled
-- [ ] File storage encryption enabled
-- [ ] TLS certificate configured (use Let's Encrypt or cloud provider)
+- [ ] Database encryption enabled (RDS storage encrypted with KMS)
+- [ ] File storage encryption enabled (S3 and EBS)
+- [ ] S3 Block Public Access turned on at the account level
+- [ ] TLS certificate configured (free certificate from AWS Certificate Manager on your load balancer, or Let's Encrypt)
 - [ ] API keys moved to secrets manager
 - [ ] LLM API key (OpenAI, Anthropic, etc.) stored in secrets manager
 - [ ] Database passwords in secrets manager
-- [ ] Automated daily backups configured
+- [ ] Automated daily backups configured (RDS automated backups or AWS Backup)
 - [ ] Backup encryption verified
 
 **Test your data protection:**
@@ -125,13 +134,13 @@ Before you start, ensure you have:
 - Set up log aggregation and analysis
 
 **Implementation checklist:**
-- [ ] CloudTrail/audit logging enabled for all services
-- [ ] Security dashboard deployed (CloudWatch, Grafana, etc.)
-- [ ] Failed login attempt alerts configured
+- [ ] CloudTrail trail enabled for all regions, sending logs to an S3 bucket (and optionally CloudWatch Logs)
+- [ ] Security dashboard deployed (CloudWatch dashboard and/or AWS Security Hub)
+- [ ] Failed console sign-in alerts configured (CloudWatch metric filter + alarm, or EventBridge rule, sending to an SNS email topic)
 - [ ] Unusual API access pattern alerts set up
 - [ ] Database access monitoring enabled
-- [ ] Network security group change alerts
-- [ ] Resource modification notifications
+- [ ] Security group change alerts (EventBridge rule on `AuthorizeSecurityGroupIngress` and similar CloudTrail events)
+- [ ] Resource modification notifications (AWS Config rules)
 
 **Test your monitoring:**
 - Generate a failed login attempt (confirm alert fires)
@@ -144,13 +153,14 @@ Before you start, ensure you have:
 ### 3.1: Implement Threat Detection
 
 **Build automated threat detection:**
-- Deploy cloud security service (GuardDuty, Security Center, etc.)
+- Enable Amazon GuardDuty (threat detection) and Amazon Inspector (vulnerability scanning), and send their findings to AWS Security Hub
 - Configure behavioral analysis for your application
-- Set up threat intelligence feeds
+- Set up threat intelligence feeds (GuardDuty includes AWS-managed threat intelligence; you can add your own IP lists)
 - Create threat detection rules specific to your application
 
 **Implementation checklist:**
-- [ ] Cloud threat detection service enabled
+- [ ] Amazon GuardDuty enabled (note the trial end date)
+- [ ] AWS Security Hub enabled with the AWS Foundational Security Best Practices standard
 - [ ] Behavioral baselines established for normal API usage
 - [ ] Threat intelligence integration configured
 - [ ] Custom detection rules for your application patterns
@@ -160,13 +170,13 @@ Before you start, ensure you have:
 
 **Build automated response capabilities:**
 - Create incident response workflows
-- Implement automated remediation for common threats
+- Implement automated remediation for common threats (EventBridge rules that trigger Lambda functions or SNS notifications)
 - Build runbooks for manual response procedures
 - Set up incident communication channels
 
 **Implementation checklist:**
-- [ ] Automated response to compromised credentials
-- [ ] Automatic isolation of suspicious network activity
+- [ ] Automated response to compromised credentials (e.g. Lambda deactivates an exposed IAM access key)
+- [ ] Automatic isolation of suspicious network activity (e.g. Lambda moves a flagged EC2 instance into a "quarantine" security group)
 - [ ] Incident escalation workflows defined
 - [ ] Runbooks created for each incident type
 - [ ] Communication plan for security incidents
@@ -219,6 +229,16 @@ Before you start, ensure you have:
 - Risk assessment and mitigation strategies
 - Audit trail and logging procedures
 - Cost analysis of security implementation
+
+## Clean Up
+
+When you've captured your evidence and documentation, avoid surprise charges:
+
+- Disable GuardDuty, Security Hub, Inspector, Detective and AWS Config recording if you won't keep using them
+- Delete NAT Gateways, interface VPC endpoints, load balancers, AWS WAF web ACLs and any EC2/RDS resources you no longer need
+- Schedule deletion of KMS customer-managed keys you created for practice, and delete practice secrets
+- Keep one CloudTrail trail (the first one is free for management events) and your AWS Budgets alerts
+- Check the Billing console's **Bills** page a few days later to confirm charges have stopped
 
 ## Success Criteria
 
@@ -279,3 +299,4 @@ Before completing, make sure you have:
 - [ ] Tested all security controls
 - [ ] Created security documentation and diagrams
 - [ ] Completed cost analysis
+- [ ] Disabled paid services and deleted resources you no longer need
